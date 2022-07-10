@@ -5,7 +5,7 @@
     <a class="block" href="/register">
         Register
     </a>
-    <a class="block" href="<? site_url('login') ?>">
+    <a class="block" href="/login">
         Login
     </a>
 <?= $this->endSection() ?>
