@@ -5,15 +5,15 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
 
-class Dashboard extends BaseController
+class UserProfile extends BaseController
 {
-    public function getIndex()
+    public function getEdit($userId)
     {
         //echo "You're logged in as " . session()->get('loggedInUser');
 
         $userModel = new UserModel();
-        $userData = $userModel->find(session()->get('loggedInUser'));
+        $userData = $userModel->find($userId);
 
-        return view('dashboard', ['userData' => $userData]);
+        return view('userProfile/edit', ['userData' => $userData]);
     }
 }

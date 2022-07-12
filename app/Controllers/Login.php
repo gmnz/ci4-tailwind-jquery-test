@@ -44,10 +44,18 @@ class Login extends BaseController
         }
 
         $email = $this->request->getPost('email');
-        $password = trim($this->request->getPost('password'));
+        $password = $this->request->getPost('password');
 
         $userModel = new UserModel();
         $userFromDB = $userModel->where('email', $email)->first();
+
+        if(!$userFromDB) 
+        {
+            //session()->setFlashdata('fail', 'Password is incorrect');
+            //return redirect()->to('login');
+            //return redirect()->to('/login')->with('fail', "Incorrect password");
+            return view('auth/login', ['unknownEmail' => 'Unkown e-mail address']);
+        }
 
         $passwordCheck = Hash::check($password, $userFromDB['password']);
 
@@ -56,14 +64,16 @@ class Login extends BaseController
         {
             //session()->setFlashdata('fail', 'Password is incorrect');
             //return redirect()->to('login');
-            return redirect()->to('/login')->with('fail', "Incorrect password");
+            //return redirect()->to('/login')->with('fail', "Incorrect password");
+            return view('auth/login', ['wrongPassword' => 'Incorrect password']);
         }
         else 
         {
             $userId = $userFromDB['user_id'];
 
             session()->set('loggedInUser', $userId);
-            return redirect()->to('/dashboard');
+            //return redirect()->to("/userProfile/show/{$userId}");
+            return redirect()->to("/dashboard");
         }
 
     }

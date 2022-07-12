@@ -11,29 +11,6 @@
             Sign In
         </h1>
 
-        <?php
-            if(!empty(session()->getFlashdata('success'))) {
-                ?>
-                    <div class="text-green-500">
-                        <?=
-                            session()->getFlashdata('success')
-                        ?>
-                    </div>
-            
-                <?php
-            }
-            else if(!empty(session()->getFlashdata('fail'))) {
-                ?>
-                    <div class="text-red-500">
-                        <?=
-                            session()->getFlashdata('fail')
-                        ?>
-                    </div>
-            
-                <?php
-            }
-        ?>
-
         <form 
             action="/login/check"
             method="POST"
@@ -56,6 +33,7 @@
                 class="text-red-500 block"
             >
                 <?= isset($validation) ? display_form_errors($validation, 'email') : "" ?>
+                <?= isset($unknownEmail) ? $unknownEmail : "" ?>
             </span>
             <label 
                 for="password"
@@ -74,6 +52,7 @@
                 class="text-red-500 block"
             >
                 <?= isset($validation) ? display_form_errors($validation, 'password') : "" ?>
+                <?= isset($wrongPassword) ? $wrongPassword : "" ?>
             </span>
             <input 
                 type="submit"

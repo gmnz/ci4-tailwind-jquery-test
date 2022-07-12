@@ -30,10 +30,11 @@ class Register extends BaseController
                 ]
             ],
             'email' => [
-                'rules' => 'required|valid_email',
+                'rules' => 'required|valid_email|is_unique[users.email]',
                 'errors' => [
                     'required' => 'Your e-mail is required',
-                    'valid_email' => 'Invalid email'
+                    'valid_email' => 'Invalid email',
+                    'is_unique' => 'Account with this e-mail already exists'
                 ]
             ],
             'password' => [
@@ -78,7 +79,8 @@ class Register extends BaseController
 
         if(!$query)
         {
-            return redirect()->to('/register')->with('fail', 'Saving user failed');
+            //return redirect()->to('/register')->with('fail', 'Saving user failed');
+            return view('auth/register', ['failMessage' => 'Failed to register']);
 
             //return view('auth/register', [
             //    'validation' => $this->validator,
@@ -87,7 +89,12 @@ class Register extends BaseController
         }
         else
         {
-            return redirect()->to('/register')->with('success', 'Registered successfully');
+            //return redirect()->to('/dashboard')->with('success', 'Registered successfully');
+            //return redirect()->to('/dashboard')->with('query', $query);
+            //return view('auth/register', ['successMessage' => 'Registered successfully']);
+
+            session()->set('loggedInUser', $query);
+            return redirect()->to("/dashboard")->with('successMessage', 'Registered succesfully');
         }
 
     }
