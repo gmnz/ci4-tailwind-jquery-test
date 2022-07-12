@@ -10,6 +10,30 @@
         >
             Register
         </h1>
+
+        <?php
+            if(!empty(session()->getFlashdata('success'))) {
+                ?>
+                    <div class="text-green-500">
+                        <?=
+                            session()->getFlashdata('success')
+                        ?>
+                    </div>
+            
+                <?php
+            }
+            else if(!empty(session()->getFlashdata('fail'))) {
+                ?>
+                    <div class="text-red-500">
+                        <?=
+                            session()->getFlashdata('fail')
+                        ?>
+                    </div>
+            
+                <?php
+            }
+        ?>
+
         <form 
             action="/register/store"
             method="POST"
@@ -22,6 +46,7 @@
                 Name
             </label>
             <input 
+                value="<?= set_value('name'); ?>"
                 type="text"
                 name="name"
                 class="border-2 border-gray-100 rounded-lg block p-1 mb-2 mx-auto text-center"
@@ -39,6 +64,7 @@
                 E-mail
             </label>
             <input 
+                value="<?= set_value('email'); ?>"
                 type="text"
                 name="email"
                 class="border-2 border-gray-100 rounded-lg block p-1 mb-2 mx-auto text-center"
@@ -56,9 +82,10 @@
                 Password
             </label>
             <input 
+                value="<?= set_value('password'); ?>"
                 type="password"
                 name="password"
-                class="border-2 border-gray-100 rounded-lg block p-1 mx-auto text-center"
+                class="border-2 border-gray-100 rounded-lg block p-1 mb-2 mx-auto text-center"
                 placeholder="yourVerySecretPassword"
             >
             <span
@@ -73,9 +100,10 @@
                 Confirm Password
             </label>
             <input 
+                value="<?= set_value('cpassword'); ?>"
                 type="password"
                 name="cpassword"
-                class="border-2 border-gray-100 rounded-lg block p-1 mx-auto text-center"
+                class="border-2 border-gray-100 rounded-lg block p-1 mb-2 mx-auto text-center"
                 placeholder="one more time"
             >
             <span
@@ -95,7 +123,6 @@
         >
             I already have an account
         </a>
-        <p>ahoj</p>
     </div>
 <?= $this->endSection() ?>
 

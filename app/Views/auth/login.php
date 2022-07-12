@@ -10,8 +10,32 @@
         >
             Sign In
         </h1>
+
+        <?php
+            if(!empty(session()->getFlashdata('success'))) {
+                ?>
+                    <div class="text-green-500">
+                        <?=
+                            session()->getFlashdata('success')
+                        ?>
+                    </div>
+            
+                <?php
+            }
+            else if(!empty(session()->getFlashdata('fail'))) {
+                ?>
+                    <div class="text-red-500">
+                        <?=
+                            session()->getFlashdata('fail')
+                        ?>
+                    </div>
+            
+                <?php
+            }
+        ?>
+
         <form 
-            action=""
+            action="/login/check"
             method="POST"
         >
             <?= csrf_field(); ?>
@@ -22,11 +46,17 @@
                 E-mail
             </label>
             <input 
+                value="<?= set_value('email'); ?>"
                 type="text"
                 name="email"
-                class="border-2 border-gray-100 rounded-lg block p-1 mb-2"
+                class="border-2 border-gray-100 rounded-lg block p-1 mb-2 mx-auto text-center"
                 placeholder="your@email.here"
             >
+            <span
+                class="text-red-500 block"
+            >
+                <?= isset($validation) ? display_form_errors($validation, 'email') : "" ?>
+            </span>
             <label 
                 for="password"
                 class="block"
@@ -34,11 +64,17 @@
                 Password
             </label>
             <input 
+                value="<?= set_value('password'); ?>"
                 type="password"
                 name="password"
-                class="border-2 border-gray-100 rounded-lg block p-1"
+                class="border-2 border-gray-100 rounded-lg block p-1 mb-2 mx-auto text-center"
                 placeholder="yourVerySecretPassword"
             >
+            <span
+                class="text-red-500 block"
+            >
+                <?= isset($validation) ? display_form_errors($validation, 'password') : "" ?>
+            </span>
             <input 
                 type="submit"
                 value="Sign In"

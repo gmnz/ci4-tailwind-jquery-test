@@ -39,6 +39,6 @@ class Users extends Migration
 
     public function down()
     {
-		$this->forge->dropTable('blog');
+		$this->forge->dropTable('users');
     }
 }
