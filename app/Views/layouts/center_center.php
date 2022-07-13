@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/tailwind_jquery') ?>
+<?= $this->extend('layouts/libs_imports') ?>
 
 <?= $this->section('head') ?>
     <?= $this->renderSection('head') ?>
