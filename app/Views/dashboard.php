@@ -18,9 +18,15 @@
     <p>Welcome, <?= $userData['name']; ?>!</p>
     <a 
         href="/userProfile/edit/<?= $userData['user_id']; ?>"
-        class="underline"
+        class="underline block"
     >
         Edit your profile
+    </a>
+    <a 
+        href="/userProfile"
+        class="underline block"
+    >
+        View list of users
     </a>
 <?= $this->endSection() ?>
 

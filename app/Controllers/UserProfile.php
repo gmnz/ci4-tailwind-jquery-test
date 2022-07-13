@@ -75,4 +75,12 @@ class UserProfile extends BaseController
         }
     }
 
+    public function getIndex()
+    {
+        $userModel = new UserModel();
+        $userData = $userModel->findAll();
+
+        return view('userProfile/index', ['userData' => $userData]);
+    }
+
 }
