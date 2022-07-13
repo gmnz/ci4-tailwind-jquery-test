@@ -11,7 +11,8 @@ class Register extends BaseController
 
     public function __construct()
     {
-        helper(['url', 'form']);
+        helper(['form']);
+        //helper([]);
     }
 
     public function getIndex()
