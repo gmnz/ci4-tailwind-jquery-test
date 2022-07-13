@@ -26,7 +26,7 @@ class Register extends BaseController
             'name' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Your full name is required'
+                    'required' => 'Your name is required'
                 ]
             ],
             'email' => [

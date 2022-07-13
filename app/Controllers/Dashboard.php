@@ -9,7 +9,10 @@ class Dashboard extends BaseController
 {
     public function getIndex()
     {
-        //echo "You're logged in as " . session()->get('loggedInUser');
+        if(empty(session()->get('loggedInUser')))
+        {
+            return redirect()->to('login');
+        }
 
         $userModel = new UserModel();
         $userData = $userModel->find(session()->get('loggedInUser'));

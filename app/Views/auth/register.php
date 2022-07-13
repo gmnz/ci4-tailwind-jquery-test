@@ -22,13 +22,8 @@
             
                 <?php
             }
-            else { //if(!empty(session()->getFlashdata('fail'))) {
+            else { 
                 ?>
-                    <!-- <div class="text-red-500">
-                        <?=
-                            session()->getFlashdata('fail')
-                        ?>
-                    </div> -->
                     <div class="text-red-500">
                         <?= isset($failMessage) ? $failMessage : "" ?>
                     </div>
@@ -36,12 +31,6 @@
                 <?php
             }
         ?>
-
-        <!--<span
-            class="text-green-500 block"
-        >
-            <?= isset($successMessage) ? $successMessage : "" ?>
-        </span>-->
 
         <form 
             action="/register/store"
