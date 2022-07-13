@@ -9,26 +9,44 @@
             <?= $userData['email']; ?>
         </div>
         <div class="mt-3 pb-1 border-b-2">
-            <button
-                class="relative inline-block"
-                onclick="
-                    document.getElementById('file-input').click();
-                    document.getElementById('avatar-img').classList.add('opacity-10');
-                "
-            >
-                <img
-                    src="/images/<?= $userData['avatar']; ?>"
-                    alt="/images/<?= $userData['avatar']; ?>"
-                    style="max-width:200px;max-height:200px"
-                    class="mx-auto"
-                    id="avatar-img"
-                >
-                <div
-                    class="absolute text-white top-0 right-0 text-xl text-white bg-black px-1"
-                >
-                    <i class="fa fa-edit"></i>
-                </div>
-            </button>
+            <?php
+                if(!empty($userData['avatar'])) {
+            ?>
+                    <button
+                        class="relative inline-block"
+                        onclick="
+                            document.getElementById('file-input').click();
+                            document.getElementById('avatar-img').classList.add('opacity-10');
+                        "
+                    >
+                        <img
+                            src="/images/<?= $userData['avatar']; ?>"
+                            alt="/images/<?= $userData['avatar']; ?>"
+                            style="max-width:200px;max-height:200px"
+                            class="mx-auto"
+                            id="avatar-img"
+                        >
+                        <div
+                            class="absolute text-white top-0 right-0 text-xl text-white bg-black px-1"
+                        >
+                            <i class="fa fa-edit"></i>
+                        </div>
+                    </button>
+            <?php
+                }
+                else {
+            ?>
+                    <button
+                        class="relative inline-block"
+                        onclick="
+                            document.getElementById('file-input').click();
+                        "
+                    >
+                        Choose avatar image
+                    </button>
+            <?php
+                }
+            ?>
         </div>
         <form 
             action="/userProfile/update" 
@@ -36,7 +54,7 @@
             enctype="multipart/form-data"
         >
             <div class="my-3">
-                <label for="userName">Name:</label>
+                <label for="userName">Username:</label>
                 <input
                     type="text"
                     name="userName"
