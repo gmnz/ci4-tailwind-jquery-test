@@ -31,7 +31,7 @@
             </button>
         </div>
         <form 
-            action="/userProfile/updateProfile" 
+            action="/userProfile/update" 
             method="POST"
             enctype="multipart/form-data"
         >

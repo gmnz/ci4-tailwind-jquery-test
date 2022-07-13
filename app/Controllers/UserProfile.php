@@ -26,7 +26,7 @@ class UserProfile extends BaseController
         return view('userProfile/edit', ['userData' => $userData]);
     }
 
-    public function postUpdateProfile()
+    public function postUpdate()
     {
         $loggedInUserId = session()->get('loggedInUser');
 
