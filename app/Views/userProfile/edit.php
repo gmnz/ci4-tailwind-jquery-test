@@ -40,7 +40,8 @@
                         class="relative inline-block"
                         onclick="
                             document.getElementById('file-input').click();
-                            document.getElementById('no-image-button').innerHTML = 'Avatar image chosen!';
+                            document.getElementById('no-image-button')
+                                .innerHTML = 'Avatar image chosen!';
                         "
                         id="no-image-button"
                     >
