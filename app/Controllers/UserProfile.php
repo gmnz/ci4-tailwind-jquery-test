@@ -43,7 +43,7 @@ class UserProfile extends BaseController
 
         $newData['name'] = $this->request->getPost('userName');
 
-        if($img)
+        if($img->getName())
         {
             if(!empty($userData['avatar']))
             {
