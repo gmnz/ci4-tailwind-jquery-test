@@ -31,48 +31,58 @@ class UserProfile extends BaseController
         $loggedInUserId = session()->get('loggedInUser');
 
         $config['upload_path'] = getcwd().'/images';
-        $imageName = $this->request->getFile('userImage')->getName();
+        $img = $this->request->getFile('userImage');
 
         $userModel = new UserModel();
         $userData = $userModel->find($loggedInUserId);
-
-        if(!empty($userData['avatar']) && $imageName)
-        {
-            unlink($config['upload_path'] . "/" . $userData['avatar']);
-        }
 
         if(!is_dir($config['upload_path']))
         {
             mkdir($config['upload_path'], 0777);
         }
 
-        $img = $this->request->getFile('userImage');
+        $newData['name'] = $this->request->getPost('userName');
 
-        if($imageName) 
+        if($img)
         {
-            $data['avatar'] = $imageName;
-        }
-        $data['name'] = $this->request->getPost('userName');
+            if(!empty($userData['avatar']))
+            {
+                if(file_exists(
+                        $config['upload_path'] . 
+                        "/" . 
+                        $userData['avatar']
+                ))
+                {
+                    unlink(
+                        $config['upload_path'] . 
+                        "/" . 
+                        $userData['avatar']
+                    );
+                }
 
+            }
 
-        $userModel = new UserModel();
-        $userModel->update($loggedInUserId, $data);
+            $imageName = $img->getName();
 
-        if(!$img->hasMoved() && $loggedInUserId && $imageName)
-        {
+            if($img->hasMoved())
+            {
+                return redirect()
+                    ->to("userProfile/edit/{$loggedInUserId}")
+                    ->with('failImage', 'Image upload failed');
+            }
+
             $img->move($config['upload_path'], $imageName);
 
+            $imageName = $img->getName();
+            $newData['avatar'] = $imageName;
+        }
 
-            return redirect()
-                ->to("userProfile/edit/{$loggedInUserId}")
-                ->with('successImage', 'Image uploaded successfully');
-        }
-        else
-        {
-            return redirect()
-                ->to("userProfile/edit/{$loggedInUserId}")
-                ->with('failImage', 'Image upload failed');
-        }
+        $userModel->update($loggedInUserId, $newData);
+
+        return redirect()
+            ->to("userProfile/edit/{$loggedInUserId}")
+            ->with('successImage', 'Profile udpated successfully');
+
     }
 
     public function getIndex()
