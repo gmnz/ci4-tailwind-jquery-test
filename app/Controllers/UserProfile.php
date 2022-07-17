@@ -7,18 +7,18 @@ use App\Models\UserModel;
 
 class UserProfile extends BaseController
 {
+    public function __construct()
+    {
+        helper(['login']);
+        check_logged_in();
+    }
+
     public function postEdit($userId) {
         $this->getEdit($userId);
     }
 
     public function getEdit($userId)
     {
-        //echo "You're logged in as " . session()->get('loggedInUser');
-
-        if(empty(session()->get('loggedInUser')))
-        {
-            return redirect()->to('login');
-        }
 
         $userModel = new UserModel();
         $userData = $userModel->find($userId);

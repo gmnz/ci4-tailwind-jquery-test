@@ -7,13 +7,14 @@ use App\Models\UserModel;
 
 class Dashboard extends BaseController
 {
+    public function __construct()
+    {
+        helper(['login']);
+        check_logged_in();
+    }
+
     public function getIndex()
     {
-        if(empty(session()->get('loggedInUser')))
-        {
-            return redirect()->to('login');
-        }
-
         $userModel = new UserModel();
         $userData = $userModel->find(session()->get('loggedInUser'));
 
