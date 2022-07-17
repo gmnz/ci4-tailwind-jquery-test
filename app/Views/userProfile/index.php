@@ -67,13 +67,13 @@
                             value="<?= isset($filters['email']) ? $filters['email'] : "" ?>"
                         >
 
+                    </div>
                         <input 
                             type="submit" 
                             value="Filter"
-                            class="font-bold rounded bg-blue-600 text-white p-2 hover:bg-blue-500 block mx-auto mt-2"
+                            class="font-bold rounded bg-blue-600 text-white p-2 hover:bg-blue-500 block mx-auto mt-8"
                         >
-
-                    </div>
+                        <a class="block underline text-center mt-3" href="/userProfile">Reset filter</a>
                 </form>
             </div>
             <div class="flex justify-center mt-10">
