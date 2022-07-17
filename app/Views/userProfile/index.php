@@ -10,17 +10,32 @@
                     method="GET"
                 >
                     <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-1">
-                        <!-- <label for="user_id">ID:</label>
+                        <label for="user_id">ID:</label>
                         <div class="inline-block">
                             <select 
                                 name="user_id_comp" 
                                 id="user_id_comp"
                                 class="p-1"
+                                value="<?= isset($comp_sign) ? $comp_sign : "" ?>"
                             >
+                            <?php
+                                $options = [
+                                    [">", "more than"],
+                                    ["<", "less than"],
+                                    ["=", "equal to"],
+                                ];
+                                foreach($options as $option) {
+                                    echo "<option value='{$option[0]}'";
+                                    if($comp_sign == $option[0]) {
+                                        echo " selected";
+                                    }
+                                    echo ">{$option[1]}</option>\n";
+                                }
+                            ?>
                                 <option value="null"></option>
-                                <option value="gt">greater than</option>
-                                <option value="lt">less than</option>
-                                <option value="et">equal to</option>
+                                <option value=">">greater than</>
+                                <option value="<">less than</option>
+                                <option value="=">equal to</option>
                             </select>
                             <input
                                 type="number" 
@@ -28,8 +43,9 @@
                                 id="user_id" 
                                 size=6
                                 class="border-2 border-gray-100 rounded-lg p-1"
+                                value="<?= isset($id_filter) ? $id_filter : "" ?>"
                             >
-                        </div> -->
+                        </div>
 
                         <label for="username">Username:</label>
                         <input 

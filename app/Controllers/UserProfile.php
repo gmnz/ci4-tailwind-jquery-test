@@ -88,6 +88,17 @@ class UserProfile extends BaseController
     public function getIndex()
     {
         //$filters['user_id_comp'] = $this->request->getGet('user_id_comp');
+        $id_filter = 0;
+        $comp_sign = ">";
+        $filters = [];
+        if(
+            !empty($this->request->getGet('user_id_comp')) &&
+            !empty($this->request->getGet('user_id'))
+        ) 
+        {
+            $id_filter = $this->request->getGet('user_id');
+            $comp_sign = $this->request->getGet('user_id_comp');
+        }
         //$filters['user_id'] = $this->request->getGet('user_id');
         if(!empty($this->request->getGet('username'))) 
         {
@@ -99,19 +110,13 @@ class UserProfile extends BaseController
         }
 
         $userModel = new UserModel();
-        if(isset($filters)) 
-        {
-            $userData = $userModel->like($filters)->findAll();
-            return view('userProfile/index', [
-                'userData' => $userData,
-                'filters' => $filters
-            ]);
-        }
-        else
-        {
-            $userData = $userModel->findAll();
-            return view('userProfile/index', ['userData' => $userData]);
-        }
+        $userData = $userModel->like($filters)->where('user_id'.$comp_sign, $id_filter)->findAll();
+        return view('userProfile/index', [
+            'userData' => $userData,
+            'filters' => $filters,
+            'comp_sign' => $comp_sign,
+            'id_filter' => $id_filter
+        ]);
 
     }
 
