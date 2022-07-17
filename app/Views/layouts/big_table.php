@@ -5,7 +5,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('body') ?>
-    <div class="m-5 flex justify-center">
+    <div class="m-7 flex justify-center">
         <?= $this->renderSection('body') ?>
     </div>
 <?= $this->endSection() ?>

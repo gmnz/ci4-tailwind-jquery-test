@@ -87,10 +87,32 @@ class UserProfile extends BaseController
 
     public function getIndex()
     {
-        $userModel = new UserModel();
-        $userData = $userModel->findAll();
+        //$filters['user_id_comp'] = $this->request->getGet('user_id_comp');
+        //$filters['user_id'] = $this->request->getGet('user_id');
+        if(!empty($this->request->getGet('username'))) 
+        {
+            $filters['name'] = $this->request->getGet('username');
+        }
+        if(!empty($this->request->getGet('email'))) 
+        {
+            $filters['email'] = $this->request->getGet('email');
+        }
 
-        return view('userProfile/index', ['userData' => $userData]);
+        $userModel = new UserModel();
+        if(isset($filters)) 
+        {
+            $userData = $userModel->like($filters)->findAll();
+            return view('userProfile/index', [
+                'userData' => $userData,
+                'filters' => $filters
+            ]);
+        }
+        else
+        {
+            $userData = $userModel->findAll();
+            return view('userProfile/index', ['userData' => $userData]);
+        }
+
     }
 
 }
