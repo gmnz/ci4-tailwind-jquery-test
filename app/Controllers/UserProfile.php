@@ -43,7 +43,9 @@ class UserProfile extends BaseController
 
         $newData['name'] = $this->request->getPost('userName');
 
-        if($img->getName())
+        $imageName = $img->getName();
+
+        if($imageName)
         {
             if(!empty($userData['avatar']))
             {
@@ -61,8 +63,6 @@ class UserProfile extends BaseController
                 }
 
             }
-
-            $imageName = $img->getName();
 
             if($img->hasMoved())
             {
